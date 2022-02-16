@@ -9,9 +9,7 @@ var gCurrLine = 0;
 
 function renderEditController() {
     const strHtml =
-        `<header class="header">header</header>
-
-        <div class="main-container flex space-between align-center">
+        `<div class="main-container flex space-between align-center">
 
     <div class="canvas-container">
     <canvas id="my-canvas" width="270px" height="275px" style="cursor: crosshair;"></canvas>
@@ -41,8 +39,9 @@ function renderEditController() {
     <button class="share-btn">Share</button>
     </div>
 
-    </div>
-    <footer class="footer">footer</footer>`
+    </div>`
+
+    
     document.querySelector('.editor-container').innerHTML = strHtml;
 
     gElCanvas = document.getElementById('my-canvas');

@@ -12,3 +12,9 @@
     row-gap: 8px;
     column-gap: 15px;
   }
+
+  .grid img:hover{
+      cursor: pointer;
+      box-shadow: 0 0 6px 2px #0000007e;
+      transition: box-shadow .3s;
+  }

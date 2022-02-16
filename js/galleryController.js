@@ -18,10 +18,29 @@ function onImgSelect(imgId) {
     // console.log('hi')
     setImg(imgId);
     document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.card-container').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'block';
 
+    renderNavBar()
     renderEditController()
     renderMeme()
+}
+
+function renderNavBar() {
+    const strHtml = `<div class="nav-container">
+<nav class="main-nav flex space-between main-layout">
+   <a href="index.html"><img src="/img/logo.png" class="logo header-logo" alt=""></a>
+
+    <div class="links-container">
+        <a href="index.html">Gallery</a>
+        <span style="color: #8a8a8a;">|</span>
+        <a href="">About</a>
+    </div>
+</nav>`
+
+    document.querySelector('.main-header').classList.add('editor-mode');
+    document.querySelector('.main-header').innerHTML = strHtml;
+
 }
 
 function renderSearchBar() {
@@ -32,10 +51,10 @@ function renderSearchBar() {
     
                 </div>
             <div class="key-words flex space-between grow">
-            <span>funny</span>
-            <span>dog</span>
-            <span>cat</span>
-            <span>baby</span>
+            <span class="key-word">funny</span>
+            <span class="key-word">dog</span>
+            <span class="key-word">cat</span>
+            <span class="key-word">baby</span>
             <span class="search-more-btn">more...</span>
             </div>`
 

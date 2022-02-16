@@ -21,13 +21,14 @@ a {
   text-decoration: none;
   color: #ffffff;
   transition: color 0.2s;
+  cursor: pointer;
 }
 
 a:hover {
   color: var(--clr3);
 }
 
-input[type="search"]{
+input[type="search"] {
   border: none;
   color: #040a2c;
 }
@@ -37,9 +38,9 @@ input[type="search"]:focus {
   border: none;
 }
 
-.borders{
+.borders {
   border-left: 1px solid grey;
-    border-right: 1px solid grey;
+  border-right: 1px solid grey;
 }
 
 h1,
@@ -51,6 +52,17 @@ h6 {
   margin: 0;
 }
 
-p{
+p {
   margin: 0;
+}
+
+.logo {
+  height: 22px;
+  width: 133px;
+  margin: 3.5px 400.8px 8px 0;
+  object-fit: contain;
+}
+
+.key-word{
+  cursor: pointer;
 }

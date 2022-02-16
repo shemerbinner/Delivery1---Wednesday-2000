@@ -112,7 +112,7 @@ function addListeners() {
     // addMouseListeners()
     // addTouchListeners()
     window.addEventListener('resize', () => {
-        resizeCanvas()
+        // resizeCanvas()
     })
 }
 

@@ -19,7 +19,10 @@ function renderEditController() {
     <div class="editor-controllers">
     <input type="text" placeholder="write something" name="meme-txt">
 
-    <div class="line-controllers"></div>
+    <div class="line-controllers">
+    <button class="switch-line">⇅</button>
+    </div>
+
     <div class="align-controllers">
     <button class="increas-font-size" onclick="increasFontSize()">🗚</button>
     <button class="decreas-font-size" onclick="decreasFontSize()">🗛</button>
@@ -82,8 +85,8 @@ function renderMeme() {
     // onImgInput(ev)
     const memeImg = getMemeImg();
     // console.log(memeImg)
-    const memeObj = getMeme();
-    // console.log(memeObj)
+    const memeObj = getMemes();
+    console.log(memeObj)
     renderImg(memeImg, memeObj)
 }
 
@@ -91,16 +94,25 @@ function renderImg(memeImg, memeObj) {
     var img = new Image();
     img.src = memeImg.url;
     // console.log(img)
-    const line = memeObj.lines[memeObj.selectedLineIdx].txt;
+    const lines = memeObj.lines.map(line => {
+        // console.log(line)
+        const str = line.txt;
+        return str;
+    })
+    // console.log(lines)
+    // console.log(lines[1])
+
 
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
-        drawText(line, 150, 100)
+        drawText(lines[0], 135, 50)
+        drawText(lines[1], 135, 230)
     };
 }
 
 function drawText(text, x, y) {
     gCtx.lineWidth = 2;
+    gCtx.textAlign = 'center';
     gCtx.strokeStyle = gStrokeColor;
     gCtx.fillStyle = gFontColor;
     gCtx.font = `${gFontSize}px Arial`;

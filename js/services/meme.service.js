@@ -16,17 +16,24 @@ var gMeme = {
             size: 20,
             align: 'left',
             color: 'red'
-        }
+        },
+        {
+            txt: 'I love ice cream',
+            size: 20,
+            align: 'left',
+            color: 'blue'
+        },
+
     ]
 }
 
-function getMemeImg(){
+function getMemeImg() {
     return gSelectedImg
 }
 
-function setImg(imgId){
-   const img = gImgs.find(img => img.id === imgId);
-   gSelectedImg = img;
+function setImg(imgId) {
+    const img = gImgs.find(img => img.id === imgId);
+    gSelectedImg = img;
     // console.log(gSelectedImg)
     gMeme.selectedImgId = imgId;
     gMeme
@@ -38,12 +45,12 @@ function setLineTxt(txt) {
     // console.log(gMeme.lines[gMeme.selectedLineIdx].txt)
 }
 
-function getMeme() {
+function getMemes() {
     // console.log(img)
     return gMeme
 }
 
-function getMemeImgs(){
+function getMemeImgs() {
     return gImgs
 }
 

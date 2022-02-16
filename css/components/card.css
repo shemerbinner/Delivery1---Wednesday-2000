@@ -1,0 +1,37 @@
+.card-container {
+  height: 284px;
+}
+
+.card-image {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin: 0 43px;
+}
+
+.card-container h2 {
+  font-size: 0.78125rem;
+  font-family: mB, sans-serif;
+  margin-block-end: 4px;
+}
+
+.card-container p {
+  font-size: 0.8em;
+  font-family: mR, sans-serif;
+  margin-block-end: 10px;
+}
+
+.contacts-container {
+  height: 30px;
+  width: 90px;
+}
+
+.contact-me {
+  width: 25px;
+  height: 25px;
+  color: #ffffff;
+  background-color: var(--clr1);
+  padding: 3.5px 3px;
+  border-radius: 6px;
+  text-align: center;
+}

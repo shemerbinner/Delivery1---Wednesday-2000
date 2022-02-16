@@ -1,0 +1,14 @@
+.gallery-container{
+    margin: 0 auto 20px;
+    padding: 20px 0;
+    background-color: var(--clr4);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 170px);
+    grid-template-rows: repeat(3, 139px);
+  
+    row-gap: 8px;
+    column-gap: 15px;
+  }

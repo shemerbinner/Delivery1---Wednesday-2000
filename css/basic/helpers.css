@@ -1,0 +1,21 @@
+/* felx */
+
+.flex {
+  display: flex;
+}
+
+.flex.space-between {
+  justify-content: space-between;
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.flex.justify-center {
+  justify-content: center;
+}
+
+.flex.column {
+  flex-direction: column;
+}

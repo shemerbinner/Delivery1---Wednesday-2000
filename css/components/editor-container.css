@@ -1,0 +1,15 @@
+.editor-container {
+  margin: 100px auto;
+  width: 600px;
+  height: 463px;
+  background-color: antiquewhite;
+  padding: 20px 30px;
+}
+
+.main-container {
+  width: 100%;
+}
+
+input[type="color"] {
+  display: none;
+}

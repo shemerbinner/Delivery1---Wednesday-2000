@@ -15,7 +15,7 @@ function renderEditController() {
     <canvas id="my-canvas" width="270px" height="275px" style="cursor: crosshair;"></canvas>
     </div>
 
-    <div class="editor-controllers">
+    <div class="editor-controllers flex column align-center space-between">
     <input type="text" placeholder="write something" name="meme-txt">
 
     <div class="line-controllers">
@@ -41,7 +41,7 @@ function renderEditController() {
 
     </div>`
 
-    
+
     document.querySelector('.editor-container').innerHTML = strHtml;
 
     gElCanvas = document.getElementById('my-canvas');

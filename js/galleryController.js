@@ -1,6 +1,6 @@
 'use strict'
 
-function onInit(){
+function onInit() {
     renderGallery()
 }
 
@@ -14,9 +14,11 @@ function renderGallery() {
 }
 
 function onImgSelect(imgId) {
-    console.log('hi')
+    // console.log('hi')
     setImg(imgId);
     document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.editor-container').style.display = 'block';
+
     renderEditController()
     renderMeme()
 }

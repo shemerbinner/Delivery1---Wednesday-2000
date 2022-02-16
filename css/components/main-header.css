@@ -1,0 +1,20 @@
+.main-header{
+    height: 100px;
+    width: 100%;
+}
+
+.nav-container{
+    background-color: var(--clr1);
+}
+
+.main-nav{
+    height: 35px;
+    padding: 5px 25px 0 24px;
+}
+
+.header-logo{
+    height: 22px;
+    width: 133px;
+    margin: 3.5px 400.8px 8px 0;
+    object-fit: contain;
+}

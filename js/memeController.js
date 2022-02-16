@@ -5,6 +5,7 @@ var gCtx;
 var gFontColor;
 var gStrokeColor;
 var gFontSize = 21;
+var gCurrLine = 0;
 
 function renderEditController() {
     const strHtml =
@@ -20,7 +21,7 @@ function renderEditController() {
     <input type="text" placeholder="write something" name="meme-txt">
 
     <div class="line-controllers">
-    <button class="switch-line">⇅</button>
+    <button class="switch-line" onclick="setCurrLine()">⇅</button>
     </div>
 
     <div class="align-controllers">
@@ -72,11 +73,27 @@ function onSetStrokeColor(color) {
     renderMeme()
 }
 
+function setCurrLine() {
+    // console.log('line')
+    const memes = getMemes();
+    const lines = memes.lines.map(meme => {
+        return meme.txt;
+    })
+    // console.log(lines)
+    if (gCurrLine >= lines.length - 1) {
+        gCurrLine = 0;
+        // console.log(gCurrLine)
+        return
+    }
+    gCurrLine++
+    // console.log(gCurrLine)
+}
+
 function onSetText() {
     const input = document.querySelector('input[name=meme-txt]')
     // console.log(input.value)
     input.oninput = (e) => {
-        setLineTxt(e.target.value)
+        setLineTxt(e.target.value, gCurrLine)
         renderMeme()
     }
 }
@@ -86,7 +103,7 @@ function renderMeme() {
     const memeImg = getMemeImg();
     // console.log(memeImg)
     const memeObj = getMemes();
-    console.log(memeObj)
+    // console.log(memeObj)
     renderImg(memeImg, memeObj)
 }
 

@@ -12,17 +12,33 @@
 
 <body onload="onInit()">
 
-    <h1>hello</h1>
+    <div class="main-header">
+        <div class="nav-container">
+            <nav class="main-nav flex space-between main-layout">
+                <img src="/img/logo.png" class="header-logo" alt="">
 
-    <section class="gallery-container">
+                <div class="links-container">
+                    <a href="index.html">Gallery</a> |
+                    <a href="">About</a>
+                </div>
+            </nav>
+        </div>
+
+        <section class="search-bar">
+            <div class="search-input">
+                <input type="search">
+
+            </div>
+        </section>
+    </div>
+
+
+    <section class="gallery-container main-layout">
         <div class="grid"></div>
-
-
     </section>
 
     <section class="editor-container flex align-center column space-between">
 
-        <!-- <button class="switch-line"><i class="fa-solid fa-arrow-up-arrow-down"></i></button> -->
 
         <!-- add later to font-controller -->
         <select name="fontStyle" id="font-style">
@@ -31,11 +47,9 @@
 
     </section>
 
-
     <script src="/js/services/meme.service.js"></script>
     <script src="/js/memeController.js"></script>
     <script src="/js/galleryController.js"></script>
-    <script src="/js/main.js"></script>
 </body>
 
 </html>

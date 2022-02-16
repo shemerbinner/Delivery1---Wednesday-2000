@@ -1,8 +1,11 @@
 /* SETUP */
+@import "setup/vars.css";
+@import "setup/typography.css";
 
 /* BASIC */
 
 @import "basic/base.css";
+@import "basic/layout.css";
 @import "basic/helpers.css";
 
 /* COMPONENTS */
@@ -10,3 +13,4 @@
 @import "components/grid.css";
 @import "components/editor-container.css";
 @import "components/canvas.css";
+@import "components/main-header.css";

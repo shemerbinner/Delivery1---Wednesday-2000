@@ -1,3 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.2rem;
+  color: var(--clr2);
+  font-family: mR, sans-serif;
+}
+
 body {
-    margin: 0;
-  }
+  margin: 0;
+}
+
+img {
+  width: 176.5px;
+  height: 139px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+  transition: color .2s;
+}
+
+a:hover{
+  color: var(--clr3);
+}

@@ -18,3 +18,24 @@
     margin: 3.5px 400.8px 8px 0;
     object-fit: contain;
 }
+
+.search-bar{
+    height: 51px;
+    padding: 20px;
+}
+
+.search-more-btn{
+    text-decoration: underline;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.search-container{
+    border-block-end: 2px solid #040a2c;
+    width: 187px;
+    height: 23px;
+}
+
+.search-label{
+    cursor: pointer;
+}

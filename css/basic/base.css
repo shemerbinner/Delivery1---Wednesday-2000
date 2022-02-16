@@ -20,9 +20,19 @@ img {
 a {
   text-decoration: none;
   color: #ffffff;
-  transition: color .2s;
+  transition: color 0.2s;
 }
 
-a:hover{
+a:hover {
   color: var(--clr3);
+}
+
+input[type="search"]{
+  border: none;
+  color: #040a2c;
+}
+
+input[type="search"]:focus {
+  outline: none;
+  border: none;
 }

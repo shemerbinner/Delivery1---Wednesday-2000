@@ -19,3 +19,7 @@
 .flex.column {
   flex-direction: column;
 }
+
+.flex.grow{
+  flex-grow: 0.5;
+}

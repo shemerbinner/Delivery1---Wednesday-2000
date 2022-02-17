@@ -61,3 +61,7 @@ function renderSearchBar() {
 
     document.querySelector('.search-bar').innerHTML = strHtml;
 }
+
+function toggleMenu(){
+    document.body.classList.toggle('open-menu');
+}

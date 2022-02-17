@@ -11,7 +11,7 @@
 </head>
 
 <body onload="onInit()">
-
+    <div class="main-screen" onclick="toggleMenu()"></div>
     <div class="main-header">
         <div class="nav-container">
             <nav class="main-nav flex space-between main-layout">
@@ -20,8 +20,9 @@
                 <div class="links-container">
                     <a href="index.html">Gallery</a>
                     <span style="color: #8a8a8a;">|</span>
-                    <a href="">About</a>
+                    <a href="#about">About</a>
                 </div>
+                <button class="btn-menu" onclick="toggleMenu()">☰</button>
             </nav>
         </div>
 
@@ -32,7 +33,7 @@
         <div class="grid"></div>
     </section>
 
-    <section class="card-container main-layout flex align-center justify-center">
+    <section class="card-container main-layout flex align-center justify-center" id="about">
         <img src="/img/12.jpg" class="card-image">
         <div class="card-content">
             <h2>Shemer Binner</h2>

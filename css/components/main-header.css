@@ -29,3 +29,18 @@
 .editor-mode {
   height: 35px;
 }
+
+.btn-menu{
+  height: 40px;
+  margin-inline-end: 30px;
+  align-self: center;
+  border: none;
+  background-color: inherit;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.btn-menu:active{
+  color: var(--clr4);
+}

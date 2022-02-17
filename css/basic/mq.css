@@ -1,0 +1,22 @@
+/* MOBILE */
+@media (max-width: 660px) {
+}
+
+/* MEDIUM */
+@media (min-width: 660px) {
+  .main-layout {
+    width: 620px;
+  }
+
+  .main-header {
+    height: 100px;
+    width: 100%;
+  }
+}
+
+/* LARGE */
+@media (min-width: 890px) {
+  .main-layout {
+    width: 740px;
+  }
+}

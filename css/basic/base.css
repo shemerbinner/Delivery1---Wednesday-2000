@@ -14,7 +14,7 @@ body {
 
 img {
   width: 176.5px;
-  height: 139px;
+  height: 140px;
 }
 
 a {
@@ -63,6 +63,18 @@ p {
   object-fit: contain;
 }
 
-.key-word{
+.key-word {
   cursor: pointer;
+}
+
+.btn {
+  background-color: #fff;
+  border: none;
+  font-size: 1.8rem;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  padding: 4px;
+  text-align: center;
+  font-weight: bolder;
 }

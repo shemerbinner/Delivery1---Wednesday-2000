@@ -1,8 +1,6 @@
 .canvas-container {
-  /* background-color: rgba(23, 202, 142, 0.246); */
-  height: 275px;
-  width: 270px;
-  /* margin: 20px 40px 0; */
+  height: 320px;
+  width: 310px;
 }
 
 canvas {

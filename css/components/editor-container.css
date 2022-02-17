@@ -1,9 +1,9 @@
 .editor-container {
   display: none;
-  margin: 100px auto;
-  width: 600px;
-  height: 463px;
-  background-color: antiquewhite;
+  margin: 24px auto;
+  width: 700px;
+  height: 480px;
+  background-color: var(--clr4);
   padding: 20px 30px;
 }
 
@@ -14,4 +14,35 @@
 
 input[type="color"] {
   display: none;
+}
+
+.editor-controllers {
+  height: 360px;
+  width: 265px;
+}
+
+.input-controller {
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 9px;
+}
+
+.line-controllers {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.size-btn {
+  padding: 0px 4px 3px;
+  height: 40px;
+}
+
+.font-controllers {
+  width: 100%;
+}
+
+.font-controllers label {
+  font-size: 1.75rem;
 }

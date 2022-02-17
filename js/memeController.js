@@ -10,28 +10,28 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function renderEditController() {
     const strHtml =
-        `<div class="main-container flex space-between align-center">
+        `<div class="main-container flex around align-center">
 
     <div class="canvas-container">
-    <canvas id="my-canvas" width="270px" height="275px" style="cursor: crosshair;"></canvas>
+    <canvas id="my-canvas" width="310px" height="320px" style="cursor: crosshair;"></canvas>
     </div>
 
     <div class="editor-controllers flex column align-center space-between">
-    <input type="text" placeholder="write something" name="meme-txt" ">
+    <input type="text" class="input-controller" placeholder="write something" name="meme-txt" ">
 
     <div class="line-controllers">
-    <button class="switch-line" onclick="setCurrLine()">⇅</button>
-    <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
-    <button class="delete-line" onclick="onDeleteLine()"><i class="fa-solid fa-trash-can"></i></button>
+    <button class="switch-line btn" onclick="setCurrLine()">⇅</button>
+    <button class="add-line btn" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+    <button class="delete-line btn" onclick="onDeleteLine()"><i class="fa-solid fa-trash-can"></i></button>
     
     </div>
 
     <div class="align-controllers">
-    <button class="increas-font-size" onclick="increasFontSize()">🗚</button>
-    <button class="decreas-font-size" onclick="decreasFontSize()">🗛</button>
+    <button class="increas size-btn  btn" onclick="increasFontSize()">🗚</button>
+    <button class="decreas size-btn btn" onclick="decreasFontSize()">🗛</button>
     </div>
 
-    <div class="font-controllers">
+    <div class="font-controllers flex around">
     <label for="font-color"><i class="fa-solid fa-a"></i></label>
     <input id="font-color" type="color" class="font-color" onchange="onSetFontColor(value)">
     <label for="stroke-color"><i class="fa-solid fa-palette"></i></label>
@@ -50,7 +50,7 @@ function renderEditController() {
 
     gElCanvas = document.getElementById('my-canvas');
     gCtx = gElCanvas.getContext('2d');
-    // resizeCanvas();
+    resizeCanvas();
     addListeners()
     renderMeme()
 }
@@ -215,15 +215,16 @@ function addListeners() {
     // addMouseListeners()
     // addTouchListeners()
     window.addEventListener('resize', () => {
-        // resizeCanvas()
+        resizeCanvas()
+        renderMeme()
     })
 }
 
-// function resizeCanvas() {
-//     const elContainer = document.querySelector('.canvas-container')
-//     gElCanvas.width = elContainer.offsetWidth - 20;
-//     // gElCanvas.height = elContainer.offsetHeight;
-// }
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth;
+    gElCanvas.height = elContainer.offsetHeight;
+}
 
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)

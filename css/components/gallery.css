@@ -1,20 +1,20 @@
-.gallery-container{
-    margin: 0 auto 20px;
-    padding: 20px 0;
-    background-color: var(--clr4);
+.gallery-container {
+  margin: 0 auto 20px;
+  padding: 20px 0;
+  background-color: var(--clr4);
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 170px);
-    grid-template-rows: repeat(3, 139px);
-  
-    row-gap: 8px;
-    column-gap: 15px;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 170px);
+  grid-template-rows: repeat(3, 140px);
 
-  .grid img:hover{
-      cursor: pointer;
-      box-shadow: 0 0 6px 2px #0000007e;
-      transition: box-shadow .3s;
-  }
+  row-gap: 8px;
+  column-gap: 15px;
+}
+
+.grid img:hover {
+  cursor: pointer;
+  box-shadow: 0 0 6px 2px #0000007e;
+  transition: box-shadow 0.3s;
+}

@@ -20,6 +20,7 @@ function onImgSelect(imgId) {
     document.querySelector('.gallery-container').style.display = 'none';
     document.querySelector('.card-container').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'block';
+    document.querySelector('.main-footer').style.height = '150px';
 
     renderNavBar()
     renderEditController()

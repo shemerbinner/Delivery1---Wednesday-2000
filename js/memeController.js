@@ -6,6 +6,7 @@ var gFontColor;
 var gStrokeColor;
 var gFontSize = 21;
 var gCurrLine = 0;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function renderEditController() {
     const strHtml =
@@ -16,10 +17,13 @@ function renderEditController() {
     </div>
 
     <div class="editor-controllers flex column align-center space-between">
-    <input type="text" placeholder="write something" name="meme-txt">
+    <input type="text" placeholder="write something" name="meme-txt" ">
 
     <div class="line-controllers">
     <button class="switch-line" onclick="setCurrLine()">⇅</button>
+    <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+    <button class="delete-line" onclick="onDeleteLine()"><i class="fa-solid fa-trash-can"></i></button>
+    
     </div>
 
     <div class="align-controllers">
@@ -48,53 +52,78 @@ function renderEditController() {
     gCtx = gElCanvas.getContext('2d');
     // resizeCanvas();
     addListeners()
-    onSetText()
+    renderMeme()
 }
 
 function increasFontSize() {
-    console.log('+')
-    gFontSize += 2;
+    const meme = getMemes();
+    meme.lines[gCurrLine].size++
     renderMeme()
 }
+
 function decreasFontSize() {
-    console.log('-')
-    gFontSize -= 2;
+    const meme = getMemes();
+    meme.lines[gCurrLine].size--
     renderMeme()
 }
 
 function onSetFontColor(color) {
-    gFontColor = color;
+    const meme = getMemes();
+    meme.lines[gCurrLine].color = color;
     renderMeme()
 }
 
 function onSetStrokeColor(color) {
-    gStrokeColor = color;
+    const meme = getMemes();
+    meme.lines[gCurrLine].strokeC = color;
+    renderMeme()
+}
+
+function onAddLine() {
+    console.log('hi');
+    var input = document.querySelector('input[name=meme-txt]').value;
+    var linePos = {
+        x: gElCanvas.width / 2,
+        y: gElCanvas.height / 2
+    };
+
+    if (!input) return
+    const meme = getMemes();
+
+    if (meme.lines.length >= 3) {
+        meme.lines[gCurrLine].txt = input;
+        renderMeme()
+        return
+    }
+    creatMemeLine(input, linePos);
+
+    gCurrLine = meme.selectedLineIdx;
+
+    drawText(input, linePos.x, linePos.y);
+    document.querySelector('input[name=meme-txt]').value = '';
+    renderMeme()
+    console.log(gCurrLine)
+}
+
+function onDeleteLine() {
+    // console.log('hi');
+    deleteLine(gCurrLine)
     renderMeme()
 }
 
 function setCurrLine() {
-    // console.log('line')
-    const memes = getMemes();
-    const lines = memes.lines.map(meme => {
-        return meme.txt;
-    })
-    // console.log(lines)
-    if (gCurrLine >= lines.length - 1) {
+    // console.log(gCurrLine)
+    const meme = getMemes();
+    const lines = meme.lines.length;
+    gCurrLine++
+
+    if (gCurrLine >= lines) {
         gCurrLine = 0;
-        // console.log(gCurrLine)
+        console.log(gCurrLine)
         return
     }
-    gCurrLine++
+    console.log(gCurrLine)
     // console.log(gCurrLine)
-}
-
-function onSetText() {
-    const input = document.querySelector('input[name=meme-txt]')
-    // console.log(input.value)
-    input.oninput = (e) => {
-        setLineTxt(e.target.value, gCurrLine)
-        renderMeme()
-    }
 }
 
 function renderMeme() {
@@ -108,32 +137,78 @@ function renderMeme() {
 
 function renderImg(memeImg, memeObj) {
     var img = new Image();
+    // console.log(memeImg.url)
     img.src = memeImg.url;
     // console.log(img)
-    const lines = memeObj.lines.map(line => {
-        // console.log(line)
-        const str = line.txt;
-        return str;
-    })
-    // console.log(lines)
-    // console.log(lines[1])
-
 
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
-        drawText(lines[0], 135, 50)
-        drawText(lines[1], 135, 230)
+        memeObj.lines.forEach(line => {
+            console.log(line)
+            drawText(line.txt, line.pos.x, line.pos.y, line.size,
+                line.color, line.strokeC, line.align);
+            // gCtx.measureText(line.txt)
+            // console.log(gCtx.measureText(line.txt));
+            line.width = gCtx.measureText(line.txt).width;
+            // console.log(memeObj);
+        });
     };
 }
 
-function drawText(text, x, y) {
+function drawText(text, x, y, size, color, stroke, align) {
     gCtx.lineWidth = 2;
-    gCtx.textAlign = 'center';
-    gCtx.strokeStyle = gStrokeColor;
-    gCtx.fillStyle = gFontColor;
-    gCtx.font = `${gFontSize}px Arial`;
+    gCtx.textAlign = align;
+    gCtx.strokeStyle = stroke;
+    gCtx.fillStyle = color;
+    gCtx.font = `${size}px Arial`;
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    console.log('onDown()');
+    console.log(isLineClicked(pos));
+    if (!isLineClicked(pos, gCtx)) return
+    setCircleDrag(true)
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+
+}
+
+function onMove(ev) {
+    console.log('onMove()');
+    const circle = getCircle();
+    if (circle.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveCircle(dx, dy)
+        gStartPos = pos
+        renderCanvas()
+    }
+}
+
+function onUp() {
+    console.log('onUp()');
+    setCircleDrag(false)
+    document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
 }
 
 function addListeners() {
@@ -149,3 +224,15 @@ function addListeners() {
 //     gElCanvas.width = elContainer.offsetWidth - 20;
 //     // gElCanvas.height = elContainer.offsetHeight;
 // }
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
+}

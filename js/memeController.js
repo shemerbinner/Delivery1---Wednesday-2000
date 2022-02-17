@@ -107,6 +107,7 @@ function onAddLine() {
 
 function onDeleteLine() {
     // console.log('hi');
+    document.querySelector('input[name=meme-txt]').value = '';
     deleteLine(gCurrLine)
     renderMeme()
 }

@@ -1,6 +1,4 @@
 .main-header {
-  /* height: 100px;
-    width: 100%; */
   box-shadow: 0px 1px 9px 3px #00000029;
 }
 
@@ -10,16 +8,6 @@
 
 .nav-container {
   background-color: var(--clr1);
-}
-
-.main-nav {
-  height: 35px;
-  padding: 5px 25px 0 24px;
-}
-
-.search-bar {
-  height: 51px;
-  padding: 20px;
 }
 
 .search-more-btn {

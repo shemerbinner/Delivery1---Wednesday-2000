@@ -27,6 +27,21 @@ function onImgSelect(imgId) {
     renderMeme()
 }
 
+function onCreateRandomMeme() {
+    console.log('hi')
+
+    createRandomMeme(getRandomIntInclusive(1, 9))
+
+    document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.card-container').style.display = 'none';
+    document.querySelector('.editor-container').style.display = 'block';
+    document.querySelector('.main-footer').style.height = '150px';
+
+    renderNavBar()
+    renderEditController()
+    renderMeme()
+}
+
 function renderNavBar() {
     const strHtml = `<div class="nav-container">
 <nav class="main-nav flex space-between main-layout">
@@ -62,6 +77,6 @@ function renderSearchBar() {
     document.querySelector('.search-bar').innerHTML = strHtml;
 }
 
-function toggleMenu(){
+function toggleMenu() {
     document.body.classList.toggle('open-menu');
 }

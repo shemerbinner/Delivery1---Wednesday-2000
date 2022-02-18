@@ -5,6 +5,7 @@ var gCtx;
 var gFontSize = 21;
 var gCurrLine;
 var gStartPos;
+var gIsRandom = false;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function renderEditController() {
@@ -52,6 +53,15 @@ function renderEditController() {
     resizeCanvas();
     addListeners()
     renderMeme()
+}
+
+function createRandomMeme(imgId) {
+    console.log('hi')
+    gIsRandom = true;
+    setImg(imgId);
+
+
+
 }
 
 function increasFontSize() {
@@ -130,8 +140,13 @@ function renderImg(memeImg, memeObj) {
     img.src = memeImg.url;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
+
+        if (gIsRandom) {
+
+        }
+
         memeObj.lines.forEach(line => {
-            console.log(line)
+            // console.log(line)
             drawText(line.txt, line.pos.x, line.pos.y, line.size,
                 line.color, line.strokeC, line.align);
 

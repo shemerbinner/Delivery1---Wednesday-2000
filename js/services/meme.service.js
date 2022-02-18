@@ -2,7 +2,7 @@
 
 const STORAGE_KEY = 'meme';
 var gSelectedImg;
-// var gSelectedLine;
+var gSelectedLine = 0;
 
 _creatMeme()
 
@@ -29,19 +29,61 @@ var gImgs = [
 
 var gMeme;
 
-function isLineClicked(pos, gCtx) {
-    const res = gMeme.lines.forEach(line => {
-        const x = line.pos.x;
-        const y = line.pos.y;
-        console.log(line.txt)
-        const lineWidth = gCtx.measureText(line.txt);
-        const lineHeight = line.size;
+function getCurrLine() {
+    return gSelectedLine;
+}
 
-        return (pos.x >= x && pos.x <= x + lineWidth.width &&
-            pos.y >= y - lineHeight && pos.y <= lineHeight)
+function moveLine(dx, dy, line) {
+    line.pos.x += dx;
+    line.pos.y += dy;
+}
+
+function removeAllFocus() {
+    gMeme.lines.forEach(line => line.isFocused = false)
+}
+
+function drawFocusOnLine(gCtx, line) {
+    var pos = line.pos;
+    const measures = gCtx.measureText(line.txt);
+    const width = measures.width + 10;
+    const height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent + 10;
+
+    const startX = pos.x - 5;
+    const startY = pos.y - height + 6;
+
+    drawRect(gCtx, startX, startY, width, height)
+}
+
+function drawRect(gCtx, startX, startY, width, height) {
+    gCtx.beginPath();
+    gCtx.lineWidth = 0.5;
+    gCtx.rect(startX, startY, width, height);
+    gCtx.strokeStyle = 'black';
+    gCtx.stroke();
+}
+
+function setTextDrag(isDrag) {
+    gMeme.lines[gSelectedLine].isDrag = isDrag
+}
+
+function isLineClicked(clickPos, gCtx) {
+
+    return gMeme.lines.some(line => {
+        var pos = line.pos;
+        const measures = gCtx.measureText(line.txt);
+        const width = measures.width;
+        const height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent;
+
+        if (clickPos.x >= pos.x && clickPos.x <= (pos.x + width) &&
+            clickPos.y >= (pos.y - height) && clickPos.y <= pos.y) {
+
+            gSelectedLine = gMeme.lines.findIndex(currLine => currLine === line);
+            console.log(gSelectedLine)
+            line.isFocused = true;
+            return true
+        }
+        return false
     })
-
-    return res
 }
 
 function getMemeImg() {
@@ -58,14 +100,15 @@ function setImg(imgId) {
     _saveMemeToStorage()
 }
 
-function creatMemeLine(line, pos, width) {
+function creatMemeLine(line, pos) {
     gMeme.lines.push({
         txt: line,
         size: 21,
         align: 'left',
         color: 'blue',
-        width: null,
-        pos: pos
+        pos: pos,
+        isDrag: false,
+        isFocused: false
     })
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
     console.log(gMeme)
@@ -79,7 +122,6 @@ function deleteLine(idx) {
 }
 
 function setLineTxt(txt, txtIdx) {
-
     gMeme.lines[txtIdx].txt = txt;
     // console.log(gMeme.lines[gMeme.selectedLineIdx].txt)
 }
@@ -99,27 +141,28 @@ function _creatMeme() {
             {
                 txt: 'I sometimes eat Bamya',
                 size: 21,
-                align: 'center',
+                align: 'left',
                 color: 'black',
                 strokeC: '',
-                width: null,
                 pos: {
-                    x: 135,
+                    x: 60,
                     y: 25
-                }
+                },
+                isDrag: false,
+                isFocused: false
             },
             {
                 txt: 'I love ice cream',
                 size: 21,
-                align: 'center',
+                align: 'left',
                 color: 'black',
-                width: null,
                 pos: {
-                    x: 135,
-                    y: 250
-                }
+                    x: 90,
+                    y: 270
+                },
+                isDrag: false,
+                isFocused: false
             },
-
         ]
     }
     _saveMemeToStorage()

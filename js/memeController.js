@@ -2,10 +2,9 @@
 
 var gElCanvas;
 var gCtx;
-var gFontColor;
-var gStrokeColor;
 var gFontSize = 21;
-var gCurrLine = 0;
+var gCurrLine;
+var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function renderEditController() {
@@ -13,14 +12,14 @@ function renderEditController() {
         `<div class="main-container flex around align-center">
 
     <div class="canvas-container">
-    <canvas id="my-canvas" width="310px" height="320px" style="cursor: crosshair;"></canvas>
+    <canvas id="my-canvas" width="310px" height="320px" style="cursor: grab;"></canvas>
     </div>
 
     <div class="editor-controllers flex column align-center space-between">
     <input type="text" class="input-controller" placeholder="write something" name="meme-txt" ">
 
     <div class="line-controllers">
-    <button class="switch-line btn" onclick="setCurrLine()">⇅</button>
+    <button class="edit-line btn" onclick="onEditLine()"><i class="fa-solid fa-pencil"></i></button>
     <button class="add-line btn" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
     <button class="delete-line btn" onclick="onDeleteLine()"><i class="fa-solid fa-trash-can"></i></button>
     
@@ -45,11 +44,11 @@ function renderEditController() {
 
     </div>`
 
-
     document.querySelector('.editor-container').innerHTML = strHtml;
 
     gElCanvas = document.getElementById('my-canvas');
     gCtx = gElCanvas.getContext('2d');
+    gCurrLine = getCurrLine();
     resizeCanvas();
     addListeners()
     renderMeme()
@@ -79,30 +78,35 @@ function onSetStrokeColor(color) {
     renderMeme()
 }
 
+function onEditLine() {
+    var input = document.querySelector('input[name=meme-txt]').value;
+
+    if (!input) return;
+
+    const meme = getMemes();
+    meme.lines[gCurrLine].txt = input;
+    meme.lines[gCurrLine].isFocused = true;
+    renderMeme()
+    document.querySelector('input[name=meme-txt]').value = '';
+}
+
 function onAddLine() {
-    console.log('hi');
     var input = document.querySelector('input[name=meme-txt]').value;
     var linePos = {
         x: gElCanvas.width / 2,
         y: gElCanvas.height / 2
     };
 
-    if (!input) return
+    if (!input) return;
     const meme = getMemes();
 
-    if (meme.lines.length >= 3) {
-        meme.lines[gCurrLine].txt = input;
-        renderMeme()
-        return
-    }
     creatMemeLine(input, linePos);
-
-    gCurrLine = meme.selectedLineIdx;
-
-    drawText(input, linePos.x, linePos.y);
-    document.querySelector('input[name=meme-txt]').value = '';
+    const newLineIdx = meme.lines.length - 1;
+    meme.lines[newLineIdx].txt = input;
+    gCurrLine = newLineIdx;
+    meme.lines[gCurrLine].isFocused = true;
     renderMeme()
-    console.log(gCurrLine)
+    document.querySelector('input[name=meme-txt]').value = '';
 }
 
 function onDeleteLine() {
@@ -110,21 +114,6 @@ function onDeleteLine() {
     document.querySelector('input[name=meme-txt]').value = '';
     deleteLine(gCurrLine)
     renderMeme()
-}
-
-function setCurrLine() {
-    // console.log(gCurrLine)
-    const meme = getMemes();
-    const lines = meme.lines.length;
-    gCurrLine++
-
-    if (gCurrLine >= lines) {
-        gCurrLine = 0;
-        console.log(gCurrLine)
-        return
-    }
-    console.log(gCurrLine)
-    // console.log(gCurrLine)
 }
 
 function renderMeme() {
@@ -138,20 +127,17 @@ function renderMeme() {
 
 function renderImg(memeImg, memeObj) {
     var img = new Image();
-    // console.log(memeImg.url)
     img.src = memeImg.url;
-    // console.log(img)
-
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
         memeObj.lines.forEach(line => {
             console.log(line)
             drawText(line.txt, line.pos.x, line.pos.y, line.size,
                 line.color, line.strokeC, line.align);
-            // gCtx.measureText(line.txt)
-            // console.log(gCtx.measureText(line.txt));
+
+            if (line.isFocused) drawFocusOnLine(gCtx, line);
+
             line.width = gCtx.measureText(line.txt).width;
-            // console.log(memeObj);
         });
     };
 }
@@ -167,33 +153,32 @@ function drawText(text, x, y, size, color, stroke, align) {
 }
 
 function onDown(ev) {
-    const pos = getEvPos(ev)
-    console.log('onDown()');
-    console.log(isLineClicked(pos));
-    if (!isLineClicked(pos, gCtx)) return
-    setCircleDrag(true)
-    gStartPos = pos
-    document.body.style.cursor = 'grabbing'
-
+    const pos = getEvPos(ev);
+    removeAllFocus();
+    if (!isLineClicked(pos, gCtx)) return;
+    renderMeme();
+    setTextDrag(true);
+    gStartPos = pos;
+    gCurrLine = getCurrLine();
+    document.querySelector('canvas').style.cursor = 'grabbing';
 }
 
 function onMove(ev) {
-    console.log('onMove()');
-    const circle = getCircle();
-    if (circle.isDrag) {
+    const memes = getMemes();
+    const line = memes.lines[gCurrLine];
+    if (line.isDrag) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
-        moveCircle(dx, dy)
+        moveLine(dx, dy, line)
         gStartPos = pos
-        renderCanvas()
+        renderMeme()
     }
 }
 
 function onUp() {
-    console.log('onUp()');
-    setCircleDrag(false)
-    document.body.style.cursor = 'grab'
+    setTextDrag(false, gCurrLine);
+    document.querySelector('canvas').style.cursor = 'grab';
 }
 
 function getEvPos(ev) {
@@ -213,8 +198,8 @@ function getEvPos(ev) {
 }
 
 function addListeners() {
-    // addMouseListeners()
-    // addTouchListeners()
+    addMouseListeners()
+    addTouchListeners()
     window.addEventListener('resize', () => {
         resizeCanvas()
         renderMeme()

@@ -1,5 +1,24 @@
 'use strict'
 
+var keywords = {
+    funny: {
+        clicks: 0,
+        prevSize: 1,
+    },
+    dog: {
+        clicks: 0,
+        prevSize: 1,
+    },
+    cat: {
+        clicks: 0,
+        prevSize: 1,
+    },
+    baby: {
+        clicks: 0,
+        prevSize: 1,
+    }
+}
+
 function onInit() {
     renderGallery();
     renderSearchBar();
@@ -15,7 +34,6 @@ function renderGallery() {
 }
 
 function onImgSelect(imgId) {
-    // console.log('hi')
     setImg(imgId);
     document.querySelector('.gallery-container').style.display = 'none';
     document.querySelector('.card-container').style.display = 'none';
@@ -28,8 +46,6 @@ function onImgSelect(imgId) {
 }
 
 function onCreateRandomMeme() {
-    // console.log('hi')
-
     createRandomMeme(getRandomIntInclusive(1, 9))
 
     document.querySelector('.gallery-container').style.display = 'none';
@@ -56,25 +72,44 @@ function renderNavBar() {
 
     document.querySelector('.main-header').classList.add('editor-mode');
     document.querySelector('.main-header').innerHTML = strHtml;
-
 }
 
 function renderSearchBar() {
     const strHtml = `
     <div class="search-container">
-    <input class="search-input" id="search-input" type="search" placeholder="Enter search keyword">
-    <label for="search-input" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>            
-    
+    <form action="/action_page.php" method="get">
+               <input type="text" name="tags" id="tags" list="tags-list"">
+               <datalist id="tags-list">
+               <option value="All"></option>
+               <option value="Sweet"></option>
+               <option value="Dog"></option>
+               <option value="Cat"></option>
+               <option value="Man"></option>
+               <option value="Funny"></option>
+             </datalist>
+             <button onclick="onFilter(event)" for="tags">Filter</button>
+             </form>
                 </div>
+
             <div class="key-words flex space-between grow">
-            <span class="key-word">funny</span>
-            <span class="key-word">dog</span>
-            <span class="key-word">cat</span>
-            <span class="key-word">baby</span>
-            <span class="search-more-btn">more...</span>
+            <span onclick="resizeKeyWord(this, this.innerText)" class="key-word">funny</span>
+            <span onclick="resizeKeyWord(this, this.innerText)" class="key-word">dog</span>
+            <span onclick="resizeKeyWord(this, this.innerText)" class="key-word">cat</span>
+            <span onclick="resizeKeyWord(this, this.innerText)" class="key-word">baby</span>
+            <span onclick="resizeKeyWord(this, this.innerText)" class="search-more-btn">more...</span>
             </div>`
 
     document.querySelector('.search-bar').innerHTML = strHtml;
+}
+
+function resizeKeyWord(el, keyWord) {
+    keywords[keyWord].clicks++
+    var prevSize = keywords[keyWord].prevSize;
+
+    el.style.fontSize = `${prevSize + 0.1}rem`
+    keywords[keyWord].prevSize = prevSize + 0.1;
+
+    onFilter('', keyWord);
 }
 
 function toggleMenu() {

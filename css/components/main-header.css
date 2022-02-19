@@ -16,12 +16,6 @@
   cursor: pointer;
 }
 
-.search-container {
-  border-block-end: 2px solid #040a2c;
-  width: 187px;
-  height: 23px;
-}
-
 .search-label {
   cursor: pointer;
 }
@@ -30,7 +24,7 @@
   height: 35px;
 }
 
-.btn-menu{
+.btn-menu {
   height: 40px;
   margin-inline-end: 30px;
   align-self: center;
@@ -41,6 +35,6 @@
   cursor: pointer;
 }
 
-.btn-menu:active{
+.btn-menu:active {
   color: var(--clr4);
 }

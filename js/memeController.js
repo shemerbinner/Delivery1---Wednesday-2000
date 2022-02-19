@@ -38,9 +38,17 @@ function renderEditController() {
     <input id="stroke-color" type="color" class="stroke-color" onchange="onSetStrokeColor(value)">
     </div>
 
-    <div class="stickers-controllers"></div>
+    <div class="stickers-controllers flex space-between">
+    <div><i class="fa-solid fa-chevron-left"></i></div>
     
-    <button class="share-btn">Share</button>
+    <div class="sticker" onclick="onAddLine('🎉')">🎉</div>
+    <div class="sticker" onclick="onAddLine('👑')">👑</div>
+    <div class="sticker" onclick="onAddLine('🤿')">🤿</div>
+    
+    <div><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+    
+    <button class="share-btn" onclick="onShareMeme()">Share</button>
     </div>
 
     </div>`
@@ -52,11 +60,29 @@ function renderEditController() {
     gCurrLine = getCurrLine();
     resizeCanvas();
     addListeners()
-    // renderMeme()
+}
+
+function onShareMeme() {
+    shareMeme(gElCanvas)
+}
+
+function onFilter(ev, keyWord) {
+    console.log(ev)
+
+    if (!ev) {
+        if (!keyWord) return;
+        filterMemes(keyWord);
+    }
+    else {
+        ev.preventDefault()
+        const filterBy = document.querySelector('input[name="tags"]').value;
+        if (!filterBy) return;
+        filterMemes(filterBy.toLowerCase())
+    }
+    renderGallery();
 }
 
 function createRandomMeme(imgId) {
-    // console.log('hi')
     gIsRandom = true;
     setImg(imgId);
 
@@ -99,19 +125,26 @@ function onEditLine() {
     document.querySelector('input[name=meme-txt]').value = '';
 }
 
-function onAddLine() {
+function onAddLine(sticker) {
     var input = document.querySelector('input[name=meme-txt]').value;
     var linePos = {
         x: gElCanvas.width / 2,
         y: gElCanvas.height / 2
     };
 
-    if (!input) return;
+    if (!input && !sticker) return;
     const meme = getMemes();
+    if (sticker) {
+        creatMemeLine(sticker, linePos);
+        var newLineIdx = meme.lines.length - 1;
+        meme.lines[newLineIdx].txt = sticker;
+    }
+    else {
+        creatMemeLine(input, linePos);
+        newLineIdx = meme.lines.length - 1;
+        meme.lines[newLineIdx].txt = input;
+    }
 
-    creatMemeLine(input, linePos);
-    const newLineIdx = meme.lines.length - 1;
-    meme.lines[newLineIdx].txt = input;
     gCurrLine = newLineIdx;
     meme.lines[gCurrLine].isFocused = true;
     renderMeme()
@@ -119,7 +152,6 @@ function onAddLine() {
 }
 
 function onDeleteLine() {
-    // console.log('hi');
     document.querySelector('input[name=meme-txt]').value = '';
     deleteLine(gCurrLine)
     renderMeme()

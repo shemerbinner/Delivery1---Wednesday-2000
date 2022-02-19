@@ -65,6 +65,7 @@ p {
 
 .key-word {
   cursor: pointer;
+  /* font-size: 16px; */
 }
 
 .btn {
@@ -77,4 +78,8 @@ p {
   padding: 4px;
   text-align: center;
   font-weight: bolder;
+}
+
+datalist {
+  display: none;
 }

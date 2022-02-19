@@ -1,13 +1,15 @@
 'use strict'
 
-const STORAGE_KEY = 'meme';
+const STORAGE_MEME = 'meme';
+const STORAGE_IMG = 'imgs';
 var gSelectedImg;
 var gSelectedLine = 0;
+var gIsFiltered = false;
 
 _creatMeme()
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat', 'famous', 'president', 'man'] },
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'famous', 'president', 'man'] },
     { id: 2, url: 'img/2.jpg', keywords: ['sweet', 'dog'] },
     { id: 3, url: 'img/3.jpg', keywords: ['sweet', 'dog', 'baby'] },
     { id: 4, url: 'img/4.jpg', keywords: ['sweet', 'cat'] },
@@ -29,8 +31,20 @@ var gImgs = [
 
 var gMeme;
 
-function filterBy() {
+function filterMemes(filterBy) {
+    if (filterBy === 'all' && gIsFiltered) {
+        gIsFiltered = false;
+        gImgs = loadFromStorage(STORAGE_IMG)
+        return
+    }
 
+    gImgs = loadFromStorage(STORAGE_IMG)
+    gIsFiltered = true;
+    gImgs = gImgs.filter(img => {
+        if (img.keywords.some(keyWord => keyWord === filterBy)) {
+            return img;
+        };
+    })
 }
 
 function getCurrLine() {
@@ -101,7 +115,7 @@ function setImg(imgId) {
     gMeme.selectedImgId = imgId;
     gMeme
     // console.log(gMeme)
-    _saveMemeToStorage()
+    _saveMemeToStorage(STORAGE_MEME, gMeme)
 }
 
 function creatMemeLine(line, pos) {
@@ -116,13 +130,13 @@ function creatMemeLine(line, pos) {
     })
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
     console.log(gMeme)
-    _saveMemeToStorage()
+    _saveMemeToStorage(STORAGE_MEME, gMeme)
 }
 
 function deleteLine(idx) {
     // const gMeme.lines.find((line, index) => index === idx);
     gMeme.lines.splice(idx, 1)
-    _saveMemeToStorage()
+    _saveMemeToStorage(STORAGE_MEME, gMeme)
 }
 
 function setLineTxt(txt, txtIdx) {
@@ -143,13 +157,12 @@ function getRandMeme(gCtx, canvasWidth) {
         isDrag: false,
         isFocused: false
     }
-    _saveMemeToStorage()
+    _saveMemeToStorage(STORAGE_MEME, gMeme)
     return gMeme;
 }
 
 function _creatMeme() {
-    gMeme = loadFromStorage(STORAGE_KEY);
-    console.log(gMeme)
+    gMeme = loadFromStorage(STORAGE_MEME);
     if (!gMeme);
     gMeme = {
         selectedImgId: null,
@@ -182,14 +195,20 @@ function _creatMeme() {
             },
         ]
     }
-    _saveMemeToStorage()
+    _saveMemeToStorage(STORAGE_MEME, gMeme)
 }
 
 function getMemeImgs() {
+    if (!gIsFiltered) _saveMemeToStorage(STORAGE_IMG, gImgs);
     return gImgs
 }
 
-function _saveMemeToStorage() {
-    saveToStorage(STORAGE_KEY, gMeme)
+function _saveMemeToStorage(key, data) {
+    saveToStorage(key, data)
 }
+
+function shareMeme(gElCanvas) {
+    uploadImg(gElCanvas)
+}
+
 

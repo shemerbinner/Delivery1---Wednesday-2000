@@ -7,7 +7,7 @@ var gSelectedLine = 0;
 _creatMeme()
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat', 'famous', 'president'] },
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat', 'famous', 'president', 'man'] },
     { id: 2, url: 'img/2.jpg', keywords: ['sweet', 'dog'] },
     { id: 3, url: 'img/3.jpg', keywords: ['sweet', 'dog', 'baby'] },
     { id: 4, url: 'img/4.jpg', keywords: ['sweet', 'cat'] },
@@ -28,6 +28,10 @@ var gImgs = [
 ];
 
 var gMeme;
+
+function filterBy() {
+
+}
 
 function getCurrLine() {
     return gSelectedLine;
@@ -131,8 +135,21 @@ function getMemes() {
     return gMeme
 }
 
+function getRandMeme(gCtx, canvasWidth) {
+    gMeme = {
+        selectedImgId: gSelectedImg,
+        selectedLineIdx: 0,
+        lines: makeRandLines(gCtx, canvasWidth),
+        isDrag: false,
+        isFocused: false
+    }
+    _saveMemeToStorage()
+    return gMeme;
+}
+
 function _creatMeme() {
     gMeme = loadFromStorage(STORAGE_KEY);
+    console.log(gMeme)
     if (!gMeme);
     gMeme = {
         selectedImgId: null,

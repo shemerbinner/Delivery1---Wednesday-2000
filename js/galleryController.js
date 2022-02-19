@@ -28,7 +28,7 @@ function onImgSelect(imgId) {
 }
 
 function onCreateRandomMeme() {
-    console.log('hi')
+    // console.log('hi')
 
     createRandomMeme(getRandomIntInclusive(1, 9))
 

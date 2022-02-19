@@ -52,15 +52,13 @@ function renderEditController() {
     gCurrLine = getCurrLine();
     resizeCanvas();
     addListeners()
-    renderMeme()
+    // renderMeme()
 }
 
 function createRandomMeme(imgId) {
-    console.log('hi')
+    // console.log('hi')
     gIsRandom = true;
     setImg(imgId);
-
-
 
 }
 
@@ -78,6 +76,7 @@ function decreasFontSize() {
 
 function onSetFontColor(color) {
     const meme = getMemes();
+    console.log(gCurrLine)
     meme.lines[gCurrLine].color = color;
     renderMeme()
 }
@@ -127,11 +126,16 @@ function onDeleteLine() {
 }
 
 function renderMeme() {
-    // onImgInput(ev)
+    var memeObj;
     const memeImg = getMemeImg();
-    // console.log(memeImg)
-    const memeObj = getMemes();
-    // console.log(memeObj)
+
+    if (gIsRandom) {
+        const canvasWidth = gElCanvas.width;
+        memeObj = getRandMeme(gCtx, canvasWidth);
+        gIsRandom = false;
+    }
+    else memeObj = getMemes();
+
     renderImg(memeImg, memeObj)
 }
 
@@ -141,12 +145,7 @@ function renderImg(memeImg, memeObj) {
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
 
-        if (gIsRandom) {
-
-        }
-
         memeObj.lines.forEach(line => {
-            // console.log(line)
             drawText(line.txt, line.pos.x, line.pos.y, line.size,
                 line.color, line.strokeC, line.align);
 
@@ -158,7 +157,7 @@ function renderImg(memeImg, memeObj) {
 }
 
 function drawText(text, x, y, size, color, stroke, align) {
-    gCtx.lineWidth = 2;
+    gCtx.lineWidth = 1;
     gCtx.textAlign = align;
     gCtx.strokeStyle = stroke;
     gCtx.fillStyle = color;

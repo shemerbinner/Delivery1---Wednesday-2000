@@ -1,21 +1,5 @@
 'use strict';
 
-var count = 1;
-function getInitBook() {
-    var initBooks = [
-        { name: 'Your Life In Pictures', imgUrl: 'https://www.historic-newspapers.co.uk/app/uploads/2018/03/Your-Life-in-Pictures-Cover.jpg' },
-        { name: 'The Doors Of Eden', imgUrl: 'https://ik.imagekit.io/panmac/tr:q-75,di-placeholder_portrait_aMjPtD9YZ.jpg,w-350,pr-true,bl/edition/9781509865888.jpg' },
-        { name: 'Into The Forest', imgUrl: 'https://www.penguin.co.uk/content/dam/prh/books/312/312580/9780241377598.jpg.transform/PRHDesktopWide_small/image.jpg' }
-    ];
-    for (var i = 0; i < count; i++) {
-        var book = initBooks[i];
-    }
-    count++
-    if (count > 3) count = 1;
-    // console.log(book)
-    return book
-}
-
 function makeId(length = 2) {
     const possible = '0123456789';
     var txt = '';
@@ -25,14 +9,42 @@ function makeId(length = 2) {
     return txt;
 }
 
-function makeLorem(wordCount = 100) {
-    const words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn'];
-    var txt = '';
-    while (wordCount > 0) {
-        wordCount--;
-        txt += words[Math.floor(Math.random() * words.length)] + ' ';
+function makeRandLines(gCtx, canvasWidth) {//the width of the canvas
+    const words = ['The', 'above', 'port', 'was', 'color', 'television', 'tuned', 'to', 'dead', 'All', 'this', 'more', 'less', 'I', 'had'];
+    const numLines = getRandomIntInclusive(1, 2);
+    const lines = [];
+    var longestWord = '';
+
+    words.forEach(word => {
+        if (word.length > longestWord.length) longestWord = word;
+    })
+
+    const longestWordLength = longestWord.length;
+
+    for (let i = 0; i < numLines; i++) {
+        var txt = '';
+        var txtWidth = gCtx.measureText(txt).width;
+
+        while (txtWidth < (canvasWidth - (longestWordLength)) / 2) {
+            var randWordIdx = getRandomIntInclusive(0, 14);
+            txt += (words[randWordIdx] + ' ');
+            txtWidth = gCtx.measureText(txt).width;
+        }
+
+        var line = {
+            txt: txt,
+            size: getRandomIntInclusive(12, 20),
+            align: 'left',
+            color: getRandomColor(),
+            strokeC: getRandomColor(),
+            pos: {
+                x: getRandomIntInclusive(40, 70),
+                y: getRandomIntInclusive(25, 270)
+            }
+        }
+        lines.push(line);
     }
-    return txt;
+    return lines;
 }
 
 function getRandomIntInclusive(min, max) {

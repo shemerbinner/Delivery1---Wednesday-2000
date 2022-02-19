@@ -61,7 +61,7 @@ function onCreateRandomMeme() {
 function renderNavBar() {
     const strHtml = `<div class="nav-container">
 <nav class="main-nav flex space-between main-layout">
-   <a href="index.html"><img src="/img/logo.png" class="logo header-logo" alt=""></a>
+   <a href="index.html"><img src="img/logo.png" class="logo header-logo" alt=""></a>
 
     <div class="links-container">
         <a href="index.html">Gallery</a>

@@ -1,19 +1,19 @@
 @font-face {
   font-family: mB;
   /* src: url(/fonts/montserrat/Montserrat-Bold.ttf); */
-  src: url(fonts/montserrat/Montserrat-Bold.ttf);
+  src: url(fonts/Montserrat-Bold.ttf);
 }
 @font-face {
   font-family: mR;
-  src: url(fonts/montserrat/Montserrat-Regular.ttf);
+  src: url(fonts/Montserrat-Regular.ttf);
 }
 @font-face {
   font-family: mM;
-  src: url(fonts/montserrat/Montserrat-Medium.ttf);
+  src: url(fonts/Montserrat-Medium.ttf);
 }
 @font-face {
   font-family: mT;
-  src: url(fonts/montserrat/Montserrat-Thin.ttf);
+  src: url(fonts/Montserrat-Thin.ttf);
 }
 @font-face {
   font-family: quickR;

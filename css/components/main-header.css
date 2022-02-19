@@ -16,8 +16,27 @@
   cursor: pointer;
 }
 
-.search-label {
+#tags {
+  font-family: mR;
+  border: none;
+  border-block-end: 1px solid black;
+  padding: 2px;
+}
+#tags:focus-visible {
+  outline: none;
+}
+
+.tags-form .tags-btn {
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #e3e3e340;
+  font-family: mR;
+}
+
+.tags-form .tags-btn:hover {
+  background-color: #e3e3e382;
 }
 
 .editor-mode {

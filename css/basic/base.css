@@ -65,7 +65,10 @@ p {
 
 .key-word {
   cursor: pointer;
-  /* font-size: 16px; */
+}
+
+.key-word:hover {
+  color: #000000bd;
 }
 
 .btn {

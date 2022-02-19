@@ -27,15 +27,63 @@ input[type="color"] {
   justify-content: space-evenly;
 }
 
+.line-controllers .btn {
+  cursor: grab;
+}
+
 .size-btn {
   padding: 0px 4px 3px;
   height: 40px;
+  cursor: grab;
 }
 
 .font-controllers {
-  width: 100%;
+  width: 70%;
 }
 
 .font-controllers label {
-  font-size: 1.75rem;
+  font-size: 2rem;
+  cursor: grab;
+}
+
+.align-controllers {
+  width: 100%;
+}
+
+.font-select {
+  border: none;
+  font-size: 1.3rem;
+  border-radius: 6px;
+  padding: 6px 9px;
+  cursor: grab;
+}
+
+.sticker-controllers {
+  align-content: center;
+  font-size: 3.2rem;
+  width: 100%;
+}
+
+.sticker {
+  font-size: 3.2rem;
+  align-self: center;
+  cursor: grab;
+}
+
+.sticker-arrow {
+  font-size: 2.2rem;
+  cursor: grab;
+}
+
+.share-btn {
+  border: none;
+  background-color: var(--clr1);
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  box-shadow: inset 0 0 7px 1px #0000001f;
 }

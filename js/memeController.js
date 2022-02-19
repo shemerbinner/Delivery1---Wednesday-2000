@@ -26,7 +26,13 @@ function renderEditController() {
     
     </div>
 
-    <div class="align-controllers">
+    <div class="align-controllers flex space-between">
+    <select class="font-select" onchange="changeFont(value)">
+        <option value="Ariel">Ariel</option>
+        <option value="mR">Montserrat</option>
+        <option value="quickR">Quicksand</option>
+        <option value="shizuru">Shizuru</option>
+    </select>
     <button class="increas size-btn  btn" onclick="increasFontSize()">🗚</button>
     <button class="decreas size-btn btn" onclick="decreasFontSize()">🗛</button>
     </div>
@@ -39,13 +45,13 @@ function renderEditController() {
     </div>
 
     <div class="stickers-controllers flex space-between">
-    <div><i class="fa-solid fa-chevron-left"></i></div>
+    <div class="sticker-arrow"><i class="fa-solid fa-chevron-left"></i></div>
     
     <div class="sticker" onclick="onAddLine('🎉')">🎉</div>
     <div class="sticker" onclick="onAddLine('👑')">👑</div>
     <div class="sticker" onclick="onAddLine('🤿')">🤿</div>
     
-    <div><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="sticker-arrow"><i class="fa-solid fa-chevron-right"></i></div>
     </div>
     
     <button class="share-btn" onclick="onShareMeme()">Share</button>
@@ -86,6 +92,12 @@ function createRandomMeme(imgId) {
     gIsRandom = true;
     setImg(imgId);
 
+}
+
+function changeFont(font) {
+    const meme = getMemes();
+    meme.lines[gCurrLine].font = font;
+    renderMeme()
 }
 
 function increasFontSize() {
@@ -179,7 +191,7 @@ function renderImg(memeImg, memeObj) {
 
         memeObj.lines.forEach(line => {
             drawText(line.txt, line.pos.x, line.pos.y, line.size,
-                line.color, line.strokeC, line.align);
+                line.color, line.strokeC, line.align, line.font);
 
             if (line.isFocused) drawFocusOnLine(gCtx, line);
 
@@ -188,12 +200,12 @@ function renderImg(memeImg, memeObj) {
     };
 }
 
-function drawText(text, x, y, size, color, stroke, align) {
+function drawText(text, x, y, size, color, stroke, align, font) {
     gCtx.lineWidth = 1;
     gCtx.textAlign = align;
     gCtx.strokeStyle = stroke;
     gCtx.fillStyle = color;
-    gCtx.font = `${size}px Arial`;
+    gCtx.font = `${size}px ${font}`;
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
 }

@@ -11,6 +11,7 @@ function makeId(length = 2) {
 
 function makeRandLines(gCtx, canvasWidth) {//the width of the canvas
     const words = ['The', 'above', 'port', 'was', 'color', 'television', 'tuned', 'to', 'dead', 'All', 'this', 'more', 'less', 'I', 'had'];
+    const fonts = ['Ariel', 'mR', 'quickR', 'shizuru'];
     const numLines = getRandomIntInclusive(1, 2);
     const lines = [];
     var longestWord = '';
@@ -22,6 +23,7 @@ function makeRandLines(gCtx, canvasWidth) {//the width of the canvas
     const longestWordLength = longestWord.length;
 
     for (let i = 0; i < numLines; i++) {
+        var randFont = fonts[getRandomIntInclusive(0, 3)];
         var txt = '';
         var txtWidth = gCtx.measureText(txt).width;
 
@@ -37,6 +39,7 @@ function makeRandLines(gCtx, canvasWidth) {//the width of the canvas
             align: 'left',
             color: getRandomColor(),
             strokeC: getRandomColor(),
+            font: randFont,
             pos: {
                 x: getRandomIntInclusive(40, 70),
                 y: getRandomIntInclusive(25, 270)

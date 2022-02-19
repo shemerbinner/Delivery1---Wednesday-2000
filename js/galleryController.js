@@ -77,8 +77,8 @@ function renderNavBar() {
 function renderSearchBar() {
     const strHtml = `
     <div class="search-container">
-    <form action="/action_page.php" method="get">
-               <input type="text" name="tags" id="tags" list="tags-list"">
+    <form class="tags-form" action="/action_page.php" method="get">
+               <input type="text" name="tags" id="tags" list="tags-list" placeholder="Search"">
                <datalist id="tags-list">
                <option value="All"></option>
                <option value="Sweet"></option>
@@ -87,7 +87,7 @@ function renderSearchBar() {
                <option value="Man"></option>
                <option value="Funny"></option>
              </datalist>
-             <button onclick="onFilter(event)" for="tags">Filter</button>
+             <button class="tags-btn" onclick="onFilter(event)" for="tags">Filter</button>
              </form>
                 </div>
 

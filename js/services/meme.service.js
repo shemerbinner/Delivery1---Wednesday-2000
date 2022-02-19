@@ -124,6 +124,7 @@ function creatMemeLine(line, pos) {
         size: 21,
         align: 'left',
         color: 'blue',
+        font: 'Ariel',
         pos: pos,
         isDrag: false,
         isFocused: false
@@ -174,6 +175,7 @@ function _creatMeme() {
                 align: 'left',
                 color: 'black',
                 strokeC: '',
+                font: 'Ariel',
                 pos: {
                     x: 60,
                     y: 25
@@ -186,6 +188,7 @@ function _creatMeme() {
                 size: 21,
                 align: 'left',
                 color: 'black',
+                font: 'Ariel',
                 pos: {
                     x: 90,
                     y: 270

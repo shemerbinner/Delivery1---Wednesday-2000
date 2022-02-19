@@ -1,25 +1,25 @@
 @font-face {
   font-family: mB;
   /* src: url(/fonts/montserrat/Montserrat-Bold.ttf); */
-  src: url(/fonts/montserrat/Montserrat-Bold.ttf);
+  src: url(fonts/montserrat/Montserrat-Bold.ttf);
 }
 @font-face {
   font-family: mR;
-  src: url(/fonts/montserrat/Montserrat-Regular.ttf);
+  src: url(fonts/montserrat/Montserrat-Regular.ttf);
 }
 @font-face {
   font-family: mM;
-  src: url(/fonts/montserrat/Montserrat-Medium.ttf);
+  src: url(fonts/montserrat/Montserrat-Medium.ttf);
 }
 @font-face {
   font-family: mT;
-  src: url(/fonts/montserrat/Montserrat-Thin.ttf);
+  src: url(fonts/montserrat/Montserrat-Thin.ttf);
 }
 @font-face {
   font-family: quickR;
-  src: url(/fonts/quicksand/Quicksand-Regular.ttf);
+  src: url(fonts/quicksand/Quicksand-Regular.ttf);
 }
 @font-face {
   font-family: shizuru;
-  src: url(/fonts/shizuru/Shizuru-Regular.ttf);
+  src: url(fonts/shizuru/Shizuru-Regular.ttf);
 }

@@ -33,8 +33,8 @@ function renderEditController() {
         <option value="quickR">Quicksand</option>
         <option value="shizuru">Shizuru</option>
     </select>
-    <button class="increas size-btn  btn" onclick="increasFontSize()">🗚</button>
-    <button class="decreas size-btn btn" onclick="decreasFontSize()">🗛</button>
+    <button class="increas size-btn  btn" onclick="increasFontSize()"><img src="img/increase font - icon.png"></button>
+    <button class="decreas size-btn btn" onclick="decreasFontSize()"><img src="img/decrease font - icon.png"></button>
     </div>
 
     <div class="font-controllers flex around">

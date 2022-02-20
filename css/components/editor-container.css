@@ -34,6 +34,14 @@ input[type="color"] {
 .size-btn {
   padding: 0px 4px 3px;
   height: 40px;
+  width: auto;
+  cursor: grab;
+}
+
+.size-btn img {
+  padding: 0px 4px 3px;
+  height: 40px;
+  width: 45px;
   cursor: grab;
 }
 

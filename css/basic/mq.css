@@ -1,7 +1,7 @@
 /* MOBILE */
 @media (max-width: 660px) {
   .main-layout {
-    width: 450px;
+    max-width: 450px;
   }
   .nav-container .main-nav {
     height: 45px;
@@ -21,14 +21,17 @@
     justify-content: space-evenly;
   }
   .grid {
-    width: 365px;
+    margin: 0 auto;
+    max-width: 100%;
     row-gap: 5px;
+    column-gap: 5px;
   }
   .gallery-container {
-    margin: 0 auto 75px;
+    margin: 0 auto 45px;
+    width: 100%;
   }
   .card-container {
-    margin-block-end: 85px;
+    margin-block-end: 70px;
     flex-direction: column;
   }
   .card-container .card-image {
@@ -52,6 +55,7 @@
   .editor-container {
     width: 100%;
     height: 675px;
+    padding: 15px 30px;
   }
   .editor-container .main-container {
     flex-direction: column;
@@ -68,7 +72,7 @@
     padding: 25px;
     border-bottom: 1px solid var(--clr3);
   }
-  .links-container a:hover {
+  .links-container > a:hover {
     border-bottom: 1px solid #fff;
     transition: border-bottom 0.2s;
   }
@@ -134,12 +138,13 @@
   }
   .editor-container {
     width: 100%;
-    height: 600px;
+    height: 540px;
+    padding: 0 30px;
   }
   .editor-container .main-container {
     flex-direction: row;
     width: 100%;
-    height: 555px;
+    height: 540px;
   }
   .canvas-container {
     margin-block-end: 0;
@@ -162,6 +167,7 @@
   .editor-container {
     width: 700px;
     height: 480px;
+    padding: 15px 30px;
   }
   .editor-container .main-container {
     height: 423px;

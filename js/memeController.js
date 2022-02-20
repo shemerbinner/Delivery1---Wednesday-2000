@@ -17,7 +17,7 @@ function renderEditController() {
     </div>
 
     <div class="editor-controllers flex column align-center space-between">
-    <input type="text" class="input-controller" placeholder="write something" name="meme-txt" ">
+    <input type="text" class="input-controller" onkeyup="onTypeText(this.value)" placeholder="write something" name="meme-txt" ">
 
     <div class="line-controllers">
     <button class="edit-line btn" onclick="onEditLine()"><i class="fa-solid fa-pencil"></i></button>
@@ -25,7 +25,6 @@ function renderEditController() {
     <button class="delete-line btn" onclick="onDeleteLine()"><i class="fa-solid fa-trash-can"></i></button>
     
     </div>
-
     <div class="align-controllers flex space-between">
     <select class="font-select" onchange="changeFont(value)">
         <option value="Ariel">Ariel</option>
@@ -68,6 +67,14 @@ function renderEditController() {
     addListeners()
 }
 
+function onTypeText(txt) {
+    console.log(txt);
+    if (gCurrLine === null) return;
+
+    realTimeChangeText(txt);
+    renderMeme()
+}
+
 function onShareMeme() {
     shareMeme(gElCanvas)
 }
@@ -93,8 +100,8 @@ function createRandomMeme(imgId) {
 }
 
 function changeFont(font) {
-    const meme = getMemes();
-    meme.lines[gCurrLine].font = font;
+    console.log(font)
+    changeLineFont(font)
     renderMeme()
 }
 
@@ -209,6 +216,7 @@ function drawText(text, x, y, size, color, stroke, align, font) {
 }
 
 function onDown(ev) {
+    document.querySelector('input[name=meme-txt]').value = '';
     const pos = getEvPos(ev);
     removeAllFocus();
     if (!isLineClicked(pos, gCtx)) return;
@@ -220,6 +228,7 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
+    if (gCurrLine === null) return;
     const memes = getMemes();
     const line = memes.lines[gCurrLine];
     if (line.isDrag) {
@@ -233,6 +242,7 @@ function onMove(ev) {
 }
 
 function onUp() {
+    if (gCurrLine === null) return;
     setTextDrag(false, gCurrLine);
     document.querySelector('canvas').style.cursor = 'grab';
 }

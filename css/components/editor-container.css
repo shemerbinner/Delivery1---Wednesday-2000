@@ -1,8 +1,7 @@
 .editor-container {
-  display: none;
-  margin: 24px auto;
+  margin: 20px auto;
   background-color: var(--clr4);
-  padding: 20px 30px;
+  box-shadow: 0 0 14px 5px #00000033;
 }
 
 input[type="color"] {

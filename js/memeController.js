@@ -73,8 +73,6 @@ function onShareMeme() {
 }
 
 function onFilter(ev, keyWord) {
-    console.log(ev)
-
     if (!ev) {
         if (!keyWord) return;
         filterMemes(keyWord);
